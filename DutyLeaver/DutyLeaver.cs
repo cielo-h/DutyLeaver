@@ -149,10 +149,10 @@ internal class DutyLeaver : IDalamudPlugin, IDisposable
         {
             OnCustomLeavecommand();
         }
-        if (message.ToString() == p.Configuration.enterdutycommand && p.Configuration.IsCustomizeEnterCommand && !Svc.Condition[ConditionFlag.BoundByDuty56] && Svc.Condition[ConditionFlag.WaitingForDutyFinder] && !Svc.Condition[ConditionFlag.WaitingForDuty])
+        /*if (message.ToString() == p.Configuration.enterdutycommand && p.Configuration.IsCustomizeEnterCommand && !Svc.Condition[ConditionFlag.BoundByDuty56] && Svc.Condition[ConditionFlag.WaitingForDutyFinder] && !Svc.Condition[ConditionFlag.WaitingForDuty])
         {
             OnCustomEntercommand();
-        }
+        }*/
     }
 
     internal async void OnCustomLeavecommand()

@@ -6,6 +6,7 @@ namespace DutyLeaverPlugin;
 internal class AddressResolver : BaseAddressResolver
 {
     public IntPtr LeaveDuty { get; private set; }
+    public IntPtr DutyFinder { get; private set; }
 
     protected override void Setup64Bit(SigScanner scanner)
     {

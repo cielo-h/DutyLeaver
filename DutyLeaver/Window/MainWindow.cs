@@ -26,7 +26,7 @@ public class MainWindow : Window, IDisposable
     {
         DrawAutomatically();
         DrawCustomLeaveCommand();
-        DrawCustomEnterCommand();
+        //DrawCustomEnterCommand();
     }
     private void DrawAutomatically()
     {
@@ -52,7 +52,7 @@ public class MainWindow : Window, IDisposable
         {
             DragInt(DutyLeaver.p.Configuration.delaycomplete, x => DutyLeaver.p.Configuration.delaycomplete = x, "Delay(ms)##1", 1, 1, 10000, "%i");
         }
-        if (ImGui.Checkbox("Automatically enter duty when duty pop.", ref IsAutomaticallyCommence))
+        /*if (ImGui.Checkbox("Automatically enter duty when duty pop.", ref IsAutomaticallyCommence))
         {
             DutyLeaver.p.Configuration.IsAutomaticallyCommence = IsAutomaticallyCommence;
             DutyLeaver.p.Configuration.Save();
@@ -70,7 +70,7 @@ public class MainWindow : Window, IDisposable
         if (DutyLeaver.p.Configuration.IsAutomaticallyCommence)
         {
             DragInt(DutyLeaver.p.Configuration.delaycommence, x => DutyLeaver.p.Configuration.delaycommence = x, "Delay(ms)##2", 1, 20, 10000, "%i");
-        }
+        }*/
     }
     private void DrawCustomLeaveCommand()
     {
