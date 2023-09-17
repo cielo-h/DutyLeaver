@@ -1,0 +1,12 @@
+{
+  "Author": "C",
+  "Name": "DutyLeaver",
+  "Punchline": "Instant Leave Duties.",
+  "Description": "Allows you to instantly and Automatically leave duties with a single command.",
+  "InternalName": "DutyLeaver",
+  "DalamudApiLevel": 8,
+  "Tags": [
+    "utility"
+  ],
+  "RepoUrl": "https://github.com/cielo-h/DutyLeaver"
+}
