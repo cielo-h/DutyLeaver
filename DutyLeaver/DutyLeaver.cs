@@ -15,10 +15,6 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using static Dalamud.Game.Command.CommandInfo;
 using static Dalamud.Game.Framework;
-using ClickLib;
-using Lumina.Excel.GeneratedSheets;
-using ClickLib.Clicks;
-using Dalamud.Game.Gui;
 
 namespace DutyLeaverPlugin;
 
@@ -53,7 +49,6 @@ internal class DutyLeaver : IDalamudPlugin, IDisposable
         p = this;
         Configuration = Interface.GetPluginConfig() as Configuration ?? new Configuration();
         Configuration.Initialize(Interface);
-        Click.Initialize();
         AddressResolver = new AddressResolver();
         ((BaseAddressResolver)AddressResolver).Setup();
         leaveDungeon = Marshal.GetDelegateForFunctionPointer<LeaveDutyDelegate>(AddressResolver.LeaveDuty);
@@ -72,7 +67,6 @@ internal class DutyLeaver : IDalamudPlugin, IDisposable
         Interface.UiBuilder.Draw += DrawUI;
         Interface.UiBuilder.OpenConfigUi += DrawConfigUI;
         if(p.Configuration.IsAutomaticallyLeave) Svc.DutyState.DutyCompleted += OnDutyComplete;
-        if (p.Configuration.IsAutomaticallyCommence) Svc.ClientState.CfPop += OnDutyPop;
         Svc.Chat.ChatMessage += OnCustomizeCommand;
     }
     public void Dispose()
@@ -80,7 +74,6 @@ internal class DutyLeaver : IDalamudPlugin, IDisposable
         ECommonsMain.Dispose();
         Svc.DutyState.DutyCompleted -= OnDutyComplete;
         Svc.Chat.ChatMessage -= OnCustomizeCommand;
-        Svc.ClientState.CfPop -= OnDutyPop;
         DutyLeaverConfig.Dispose();
         this.WindowSystem.RemoveAllWindows();
         CommandManager.RemoveHandler(commandName);
@@ -133,26 +126,12 @@ internal class DutyLeaver : IDalamudPlugin, IDisposable
             }
         }
     }
-    internal async void OnDutyPop(object? sender, ContentFinderCondition e)
-    {
-        if (p.Configuration.IsAutomaticallyCommence) {
-            await Task.Delay(p.Configuration.delaycommence);
-            if (p.Configuration.IsAutomaticallyCommence && !Svc.Condition[ConditionFlag.BoundByDuty56] && Svc.Condition[ConditionFlag.WaitingForDutyFinder] && !Svc.Condition[ConditionFlag.WaitingForDuty])
-            {
-                ClickContentsFinderConfirm.Using(default).Commence();
-            }
-        }
-    }
     internal void OnCustomizeCommand(XivChatType type, uint senderId, ref SeString sender, ref SeString message, ref bool isHandled)
     {
         if (message.ToString() == p.Configuration.leavedutycommand && p.Configuration.IsCustomizeLeaveCommand && !Svc.Condition[ConditionFlag.InCombat] && Svc.Condition[ConditionFlag.BoundByDuty56])
         {
             OnCustomLeavecommand();
         }
-        /*if (message.ToString() == p.Configuration.enterdutycommand && p.Configuration.IsCustomizeEnterCommand && !Svc.Condition[ConditionFlag.BoundByDuty56] && Svc.Condition[ConditionFlag.WaitingForDutyFinder] && !Svc.Condition[ConditionFlag.WaitingForDuty])
-        {
-            OnCustomEntercommand();
-        }*/
     }
 
     internal async void OnCustomLeavecommand()
@@ -161,14 +140,6 @@ internal class DutyLeaver : IDalamudPlugin, IDisposable
         if (p.Configuration.IsCustomizeLeaveCommand && !Svc.Condition[ConditionFlag.InCombat] && Svc.Condition[ConditionFlag.BoundByDuty56]) 
         {
             requesting = true;
-        }
-    }
-    internal async void OnCustomEntercommand()
-    {
-        await Task.Delay(p.Configuration.delayentercommand);
-        if (p.Configuration.IsCustomizeEnterCommand && !Svc.Condition[ConditionFlag.BoundByDuty56] && Svc.Condition[ConditionFlag.WaitingForDutyFinder] && !Svc.Condition[ConditionFlag.WaitingForDuty])
-        {
-            ClickContentsFinderConfirm.Using(default).Commence();
         }
     }
 }

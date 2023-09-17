@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Authors>C</Authors>
     <Company></Company>
-    <Version>1.1.7.0</Version>
+    <Version>1.1.8.0</Version>
     <Description></Description>
     <Copyright></Copyright>
     <PackageProjectUrl></PackageProjectUrl>
@@ -25,9 +25,6 @@
   </ItemGroup>
   <ItemGroup>
 	<ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-	<ProjectReference Include="..\ClickLib\ClickLib\ClickLib.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>

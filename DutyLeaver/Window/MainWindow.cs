@@ -1,10 +1,8 @@
-using Dalamud.Game.Gui.PartyFinder.Types;
 using Dalamud.Interface;
 using Dalamud.Interface.Windowing;
 using Dalamud.Logging;
 using ECommons.DalamudServices;
 using ECommons.ImGuiMethods;
-using ECommons.Loader;
 using ImGuiNET;
 using System;
 using System.Numerics;
@@ -26,7 +24,6 @@ public class MainWindow : Window, IDisposable
     {
         DrawAutomatically();
         DrawCustomLeaveCommand();
-        //DrawCustomEnterCommand();
     }
     private void DrawAutomatically()
     {
@@ -52,25 +49,6 @@ public class MainWindow : Window, IDisposable
         {
             DragInt(DutyLeaver.p.Configuration.delaycomplete, x => DutyLeaver.p.Configuration.delaycomplete = x, "Delay(ms)##1", 1, 1, 10000, "%i");
         }
-        /*if (ImGui.Checkbox("Automatically enter duty when duty pop.", ref IsAutomaticallyCommence))
-        {
-            DutyLeaver.p.Configuration.IsAutomaticallyCommence = IsAutomaticallyCommence;
-            DutyLeaver.p.Configuration.Save();
-            if (DutyLeaver.p.Configuration.IsAutomaticallyCommence)
-            {
-                try { Svc.ClientState.CfPop += DutyLeaver.p.OnDutyPop; }
-                catch (Exception e) { PluginLog.Debug($"{e}"); }
-            }
-            if (!DutyLeaver.p.Configuration.IsAutomaticallyCommence)
-            {
-                try { Svc.ClientState.CfPop -= DutyLeaver.p.OnDutyPop; }
-                catch (Exception e) { PluginLog.Debug($"{e}"); }
-            }
-        }
-        if (DutyLeaver.p.Configuration.IsAutomaticallyCommence)
-        {
-            DragInt(DutyLeaver.p.Configuration.delaycommence, x => DutyLeaver.p.Configuration.delaycommence = x, "Delay(ms)##2", 1, 20, 10000, "%i");
-        }*/
     }
     private void DrawCustomLeaveCommand()
     {
@@ -91,26 +69,6 @@ public class MainWindow : Window, IDisposable
             DragInt(DutyLeaver.p.Configuration.delayleavecommand, x => DutyLeaver.p.Configuration.delayleavecommand = x, "Delay(ms)##3", 1, 1, 10000, "%i");
         }
     }
-    private void DrawCustomEnterCommand()
-    {
-        bool IsCustomizeEnterCommand = DutyLeaver.p.Configuration.IsCustomizeEnterCommand;
-        string CustomEnterCommand = DutyLeaver.p.Configuration.enterdutycommand;
-        if (ImGui.Checkbox("Custom enter duty command on chat.", ref IsCustomizeEnterCommand))
-        {
-            DutyLeaver.p.Configuration.IsCustomizeEnterCommand = IsCustomizeEnterCommand;
-            DutyLeaver.p.Configuration.Save();
-        }
-        if (DutyLeaver.p.Configuration.IsCustomizeEnterCommand)
-        {
-            if (ImGui.InputText("##2", ref CustomEnterCommand, 255))
-            {
-                DutyLeaver.p.Configuration.enterdutycommand = CustomEnterCommand;
-                DutyLeaver.p.Configuration.Save();
-            }
-            DragInt(DutyLeaver.p.Configuration.delayentercommand, x => DutyLeaver.p.Configuration.delayentercommand = x, "Delay(ms)##4", 1, 1, 10000, "%i");
-        }
-    }
-
     private static bool SameLine(float spacing)
     {
         if (spacing != 0.0f)
