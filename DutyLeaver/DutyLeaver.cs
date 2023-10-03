@@ -44,6 +44,7 @@ internal class DutyLeaver : IDalamudPlugin, IDisposable
         p = this;
         Configuration = Interface.GetPluginConfig() as Configuration ?? new Configuration();
         Configuration.Initialize(Interface);
+        ECommonsMain.Init(Interface, this);
         IntPtr LeaveDuty = Svc.SigScanner.ScanText("40 53 48 83 ec 20 48 8b 05 ?? ?? ?? ?? 0f b6 d9");
         leaveDungeon = Marshal.GetDelegateForFunctionPointer<LeaveDutyDelegate>(LeaveDuty);
         Framework.Update += new IFramework.OnUpdateDelegate(OnFrameworkUpdate);
@@ -56,7 +57,6 @@ internal class DutyLeaver : IDalamudPlugin, IDisposable
             HelpMessage = "Toggle DutyLeaver config window."
         });
         DutyLeaverConfig = new MainWindow();
-        ECommonsMain.Init(Interface, this);
         WindowSystem.AddWindow(DutyLeaverConfig);
         Interface.UiBuilder.Draw += DrawUI;
         Interface.UiBuilder.OpenConfigUi += DrawConfigUI;
