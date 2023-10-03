@@ -1,4 +1,5 @@
 using Dalamud.Interface;
+using Dalamud.Interface.Utility;
 using Dalamud.Interface.Windowing;
 using Dalamud.Logging;
 using ECommons.DalamudServices;
@@ -36,13 +37,13 @@ public class MainWindow : Window, IDisposable
             if (DutyLeaver.p.Configuration.IsAutomaticallyLeave)
             {
                 try { Svc.DutyState.DutyCompleted += DutyLeaver.p.OnDutyComplete; }
-                catch (Exception e) { PluginLog.Debug($"{e}"); }
+                catch (Exception e) { Svc.Log.Debug($"{e}"); }
             }
             if (!DutyLeaver.p.Configuration.IsAutomaticallyLeave)
             {
                 try
                 { Svc.DutyState.DutyCompleted += DutyLeaver.p.OnDutyComplete; }
-                catch (Exception e) { PluginLog.Debug($"{e}"); }
+                catch (Exception e) { Svc.Log.Debug($"{e}"); }
             }
         }
         if (DutyLeaver.p.Configuration.IsAutomaticallyLeave)

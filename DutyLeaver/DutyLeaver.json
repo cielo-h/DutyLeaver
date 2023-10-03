@@ -4,7 +4,7 @@
   "Punchline": "Instant Leave Duties.",
   "Description": "Allows you to instantly and Automatically leave duties with a single command.",
   "InternalName": "DutyLeaver",
-  "DalamudApiLevel": 8,
+  "DalamudApiLevel": 9,
   "Tags": [
     "utility"
   ],
